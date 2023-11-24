@@ -6,7 +6,10 @@ def get_fruityvice_data(this_fruit_choice):
    fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+this_fruit_choice)
    fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
    return fruityvice_normalized
-
+def get_fruit_list():
+   with my_cnx.cursor() as my_cur
+   my_cur.execute("select * from pc_rivery_db.public.fruit_load_list")
+   return my_cur.fetchall()
 streamlit.title("My parents new healthy Diner")
 streamlit.header('Breakfast Menu')
 streamlit.text('🥣Omega 3 & Blueberry Oatmeal')
@@ -29,13 +32,12 @@ try:
     streamlit.dataframe(test)
 except URLError as e:
     streamlit.error()
+if streamlit.button("Get fruits"):
+   my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
+   my_data_rows = get_fruit_list()
+   streamlit.text("Fruit List from Snowflake:")
+   streamlit.dataframe(my_data_rows)
 streamlit.stop()
-my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
-my_cur = my_cnx.cursor()
-my_cur.execute("select * from pc_rivery_db.public.fruit_load_list")
-my_data_rows = my_cur.fetchall()
-streamlit.text("Fruit List from Snowflake:")
-streamlit.dataframe(my_data_rows)
 add_fruit = streamlit.text_input('Which fruit you will like to add?','Jackfruit')
 streamlit.write('Thanks for adding ',add_fruit)
 my_cur.execute("insert into  pc_rivery_db.public.fruit_load_list values ('from streamlit')")
