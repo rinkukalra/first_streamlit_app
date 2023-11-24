@@ -7,9 +7,9 @@ def get_fruityvice_data(this_fruit_choice):
    fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
    return fruityvice_normalized
 def get_fruit_list():
-   with my_cnx.cursor() as my_cur
-   my_cur.execute("select * from pc_rivery_db.public.fruit_load_list")
-   return my_cur.fetchall()
+   with my_cnx.cursor() as my_cur:
+      my_cur.execute("select * from pc_rivery_db.public.fruit_load_list")
+      return my_cur.fetchall()
 streamlit.title("My parents new healthy Diner")
 streamlit.header('Breakfast Menu')
 streamlit.text('🥣Omega 3 & Blueberry Oatmeal')
