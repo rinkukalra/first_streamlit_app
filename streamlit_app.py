@@ -14,8 +14,6 @@ def insert_fruit_row(fruit_add):
    with my_cnx.cursor() as my_cur:
       my_cur.execute("insert into  pc_rivery_db.public.fruit_load_list values ('from streamlit')")
       return "thanks for adding" + fruit_add
-
-
 streamlit.title("My parents new healthy Diner")
 streamlit.header('Breakfast Menu')
 streamlit.text('🥣Omega 3 & Blueberry Oatmeal')
@@ -43,7 +41,6 @@ if streamlit.button("Get fruits"):
    my_data_rows = get_fruit_list()
    streamlit.text("Fruit List from Snowflake:")
    streamlit.dataframe(my_data_rows)
-streamlit.stop()
 add_fruit = streamlit.text_input('Which fruit you will like to add?','Jackfruit')
 if streamlit.button("Enter  fruit to be added"):
    back_from_function=insert_fruit_row(add_fruit)
